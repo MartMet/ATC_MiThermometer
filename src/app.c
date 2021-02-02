@@ -235,18 +235,6 @@ void user_init_normal(void) {//this will get executed one time after power up
 	measured_data.battery_mv = get_battery_mv();
 	battery_level = get_battery_level(measured_data.battery_mv);
 	init_lcd();
-	if (measured_data.battery_mv < 2000) {
-		show_temp_symbol(0);
-		show_big_number(measured_data.battery_mv * 10);
-		show_small_number(-100, 1);
-		show_battery_symbol(1);
-		update_lcd();
-#if DEVICE_TYPE == DEVICE_MHO_C401
-		while(task_lcd()) pm_wait_ms(10);
-#endif
-		cpu_sleep_wakeup(DEEPSLEEP_MODE, PM_WAKEUP_TIMER,
-				clock_time() + 120 * CLOCK_16M_SYS_TIMER_CLK_1S); // go deep-sleep 2 minutes
-	}
 	read_sensor_low_power();
 	wrk_measure = 1;
 	WakeupLowPowerCb(0);
