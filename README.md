@@ -23,7 +23,7 @@ This fork aims to provide a hardware & software modification to run the ATC-MiTh
 
 
 ### Case
-The case needs to minor modifications to be able to connect the solar panel with wires.
+The case needs minor modifications to be able to connect the solar panel with wires.
 
 <img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/case1.jpg" alt="case1" width="250"/>
 <img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/case2.jpg" alt="case2" width="250"/>
@@ -45,4 +45,17 @@ Remove the "-" pin from the supercapacitor. And carefully bend the "+" pin down.
 <img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/cap2.jpg" alt="cap2" width="250"/>
 
 ## Software Modifications
+Only minor modifications are done:
 
+* voltages below 1.9V will send the device to cyclic 2min deepsleep, over 1.9V the device will wakeup
+* "poor mans" overvoltage protection: as long as the voltage is over 3.6V a 100ms power waste loop will be called
+	* the smaller solar panel has only 5 cells which will be 0.7V * 5 - 0.3V(Ge-Diode) = max. 3.2V in bright sunlight, so no protection needed
+	* the bigger solar panel has 8 cells (5.3V) but cant power the MCU in active mode in bright sunlight, so the voltage will drop
+	* be sure not to update the device in bright sunlight
+	* the MCU clock is changed from 24MHz to 48MHz to achieve more current consumption in the power waste loop
+	* simple HW overvoltage protection means like Z-Diodes or LEDs wont work as they draw several µA even in working voltage range
+* changed battery level indicator 0-100% from 1.9V-3.6V
+
+### OTA and Custom Setup
+Flash the file "ATC_Thermometer20_mod.bin" with:
+[TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html) - OTA and customize, auto-download files new firmware
