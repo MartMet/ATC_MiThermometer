@@ -24,22 +24,23 @@ This fork aims to provide a hardware & software modification to run the ATC-MiTh
 
 ### Case
 The case needs to minor modifications to be able to connect the solar panel with wires.
-![case1](/images/case1.jpg | width=250)
-![case2](/images/case2.jpg | width=250)
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/case1.jpg" alt="case1" width="250"/>
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/case2.jpg" alt="case2" width="250"/>
+
 
 Note: When viewing the LCD the wires should be exit the case on the left side. The BLE antenna is on the right and i expierenced a worse RSSI while the first attempt to exit the wires on the right side.
 
 ### Soldering
 Just solder GND and Voltage wires a shown. Dont forget to place in a diode, this is necessary that the solar panel does not discharge the Supercap overnight.
-![solder](/images/solder.jpg | width=400)
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/solder.jpg" alt="solder" width="400"/>
+
 
 (This was the first attempt, with wires right over the BLE antenna. Be sure to use the other side!)
 
 ### Supercapacitor
 Remove the "-" pin from the supercapacitor. And carefully bend the "+" pin down. The capacitor fits into the slot of the CR2032.
-
-![cap1](/images/cap1.jpg | width=250)
-![cap2](/images/cap2.jpg | width=250)
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/cap1.jpg" alt="cap1" width="250"/>
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/cap2.jpg" alt="cap2" width="250"/>
 
 ## Software Modifications
 
