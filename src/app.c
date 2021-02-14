@@ -62,11 +62,11 @@ const cfg_t def_cfg = {
 		.flg.show_batt_enabled = false,
 		.flg.advertising_type = 3,
 		.flg.tx_measures = false,
-		.flg2.smiley = 0, // 0 = "     " off
+		.flg2.smiley = 0, // 0 = "	   " off
 		.advertising_interval = 40, // multiply by 62.5 ms = 2.5 sec
 #if DEVICE_TYPE == DEVICE_MHO_C401
 		.measure_interval = 8, // * advertising_interval = 20 sec
-		.min_step_time_update_lcd = 199, //x0.05 sec,   9.95 sec
+		.min_step_time_update_lcd = 199, //x0.05 sec,	9.95 sec
 		.hw_cfg.hwver = 1,
 #else // DEVICE_LYWSD03MMC
 		.measure_interval = 4, // * advertising_interval = 10 sec
@@ -115,7 +115,7 @@ void test_config(void) {
 	if (cfg.measure_interval == 0)
 		cfg.measure_interval = 1; // T = cfg.measure_interval * advertising_interval_ms (ms),  Tmin = 1 * 1*62.5 = 62.5 ms / 1 * 160 * 62.5 = 10000 ms
 	else if (cfg.measure_interval > 25) // max = (0x100000000-1.5*10000000*16)/(10000000*16) = 25.3435456
-		cfg.measure_interval = 25; // T = cfg.measure_interval * advertising_interval_ms (ms),  Tmax = 25 * 160*62.5 = 250000 ms = 250 sec
+		cfg.measure_interval = 25; // T = cfg.measure_interval * advertising_interval_ms (ms),	Tmax = 25 * 160*62.5 = 250000 ms = 250 sec
 	if (cfg.flg.tx_measures)
 		tx_measures = 0xff; // always notify
 	if (cfg.advertising_interval == 0) // 0 ?
@@ -235,7 +235,7 @@ void user_init_normal(void) {//this will get executed one time after power up
 	measured_data.battery_mv = get_battery_mv();
 	battery_level = get_battery_level(measured_data.battery_mv);
 	init_lcd();
-	if (measured_data.battery_mv < 2000) {
+	if (measured_data.battery_mv < 1900) {
 		show_temp_symbol(0);
 		show_big_number(measured_data.battery_mv * 10);
 		show_small_number(-100, 1);
@@ -246,6 +246,27 @@ void user_init_normal(void) {//this will get executed one time after power up
 #endif
 		cpu_sleep_wakeup(DEEPSLEEP_MODE, PM_WAKEUP_TIMER,
 				clock_time() + 120 * CLOCK_16M_SYS_TIMER_CLK_1S); // go deep-sleep 2 minutes
+	}
+	if (measured_data.battery_mv > 3600) {
+		while (measured_data.battery_mv > 3600)
+		{
+			measured_data.battery_mv = get_battery_mv();
+			battery_level = get_battery_level(measured_data.battery_mv);
+			show_temp_symbol(0);
+			show_big_number((measured_data.battery_mv-3600) * 10);
+			show_small_number(100, 1);
+			show_battery_symbol(1);
+			update_lcd();
+#if DEVICE_TYPE == DEVICE_MHO_C401
+			while(task_lcd()) pm_wait_ms(10);
+#endif
+			//100 ms of wasted power
+			unsigned long t = clock_time();
+			volatile unsigned long temp = 1;
+			while(!clock_time_exceed(t, 100000)){
+				temp *= t; 
+			}
+		}
 	}
 	read_sensor_low_power();
 	wrk_measure = 1;
@@ -393,6 +414,9 @@ _attribute_ram_code_ void main_loop(void) {
 					read_sensor_deep_sleep();
 					measured_data.battery_mv = get_battery_mv();
 					battery_level = get_battery_level(measured_data.battery_mv);
+					if (measured_data.battery_mv > 3600 || measured_data.battery_mv < 1900) {
+					   cpu_sleep_wakeup(DEEPSLEEP_MODE, PM_WAKEUP_TIMER, clock_time() +	 CLOCK_16M_SYS_TIMER_CLK_1S); // go deep-sleep 1 s
+					}
 					if (bls_pm_getSystemWakeupTick() - clock_time() > SENSOR_MEASURING_TIMEOUT + 5*CLOCK_16M_SYS_TIMER_CLK_1MS) {
 						bls_pm_registerAppWakeupLowPowerCb(WakeupLowPowerCb);
 						bls_pm_setAppWakeupLowPower(timer_measure_cb + SENSOR_MEASURING_TIMEOUT, 1);
@@ -463,7 +487,7 @@ _attribute_ram_code_ void main_loop(void) {
 			}
 			else if(stage_lcd && ((bls_pm_getSystemWakeupTick() - clock_time())) > 25 * CLOCK_16M_SYS_TIMER_CLK_1MS) {
 				cpu_set_gpio_wakeup(EPD_BUSY, Level_High, 1);  // pad high wakeup deepsleep enable
-				bls_pm_setWakeupSource(PM_WAKEUP_PAD);//|PM_WAKEUP_TIMER);  // gpio pad wakeup suspend/deepsleep
+				bls_pm_setWakeupSource(PM_WAKEUP_PAD);//|PM_WAKEUP_TIMER);	// gpio pad wakeup suspend/deepsleep
 			}
 		}
 #endif
