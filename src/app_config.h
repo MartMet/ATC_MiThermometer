@@ -7,19 +7,19 @@ extern "C" {
 #define VERSION 0x20
 #define EEP_SUP_VER 0x09 // EEP data minimum supported version
 
-#define DEVICE_LYWSD03MMC   0	// LCD display LYWSD03MMC
-#define DEVICE_MHO_C401   	1	// E-Ink display MHO-C401
+#define DEVICE_LYWSD03MMC	0	// LCD display LYWSD03MMC
+#define DEVICE_MHO_C401		1	// E-Ink display MHO-C401
 
 #define DEVICE_TYPE			DEVICE_LYWSD03MMC // DEVICE_LYWSD03MMC or DEVICE_MHO_C401
 
 #define BLE_SECURITY_ENABLE 1
 #define BLE_HOST_SMP_ENABLE BLE_SECURITY_ENABLE
 
-#define USE_TRIGGER_OUT 	1 // use trigger out (GPIO_PA5)
-#define USE_CLOCK 			1 // = 1 display clock, = 0 smile blinking
+#define USE_TRIGGER_OUT		1 // use trigger out (GPIO_PA5)
+#define USE_CLOCK			1 // = 1 display clock, = 0 smile blinking
 #define USE_FLASH_MEMO		1 // = 1 flash logger enable
 
-#define USE_DEVICE_INFO_CHR_UUID 	1 // enable Device Information Characteristics
+#define USE_DEVICE_INFO_CHR_UUID	1 // enable Device Information Characteristics
 
 #if DEVICE_TYPE == DEVICE_MHO_C401
 
@@ -94,7 +94,7 @@ extern "C" {
  * Average consumption Original Xiaomi LYWSD03MMC (advertising 1700 ms, measure 6800 ms):
  * 18.64 uA
  */
-#define CLOCK_SYS_CLOCK_HZ  	24000000 // 16000000, 24000000, 32000000, 48000000
+#define CLOCK_SYS_CLOCK_HZ		48000000 // 16000000, 24000000, 32000000, 48000000
 enum{
 	CLOCK_SYS_CLOCK_1S = CLOCK_SYS_CLOCK_HZ,
 	CLOCK_SYS_CLOCK_1MS = (CLOCK_SYS_CLOCK_1S / 1000),
