@@ -52,10 +52,14 @@ Only minor modifications are done:
 	* the smaller solar panel has only 5 cells which will be 0.7V * 5 - 0.3V(Ge-Diode) = max. 3.2V in bright sunlight, so no protection needed
 	* the bigger solar panel has 8 cells (5.3V) but cant power the MCU in active mode in bright sunlight, so the voltage will drop
 	* be sure not to update the device in bright sunlight
-	* the MCU clock is changed from 24MHz to 48MHz to achieve more current consumption in the power waste loop
 	* simple HW overvoltage protection means like Z-Diodes or LEDs wont work as they draw several µA even in working voltage range
 * changed battery level indicator 0-100% from 1.9V-3.6V
+* the MCU clock is changed from 24MHz to 48MHz to achieve more current consumption in the power waste loop (interestingly the higher MCU clock also reduced overall power consumption)
 
-### OTA and Custom Setup
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/voltage_comparsion.jpg" alt="voltage_comparsion" width="500"/>
+Voltage drop over time:
+Charged 1.5F to 3.6V and let the thermometer run with 24MHz/48MHz. Advertising interval 10s, measurement is done via plotting internal ADC values. 
+
+## OTA and Custom Setup
 Flash the file "ATC_Thermometer20_mod.bin" with:
 [TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html) - OTA and customize, auto-download files new firmware
