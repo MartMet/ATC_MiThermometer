@@ -1,0 +1,195 @@
+[
+    {
+        "id": "9f2a30a3.2090a8",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "de32997b.aba3b",
+        "type": "inject",
+        "z": "9f2a30a3.2090a8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "ae448902.c57738"
+            ]
+        ]
+    },
+    {
+        "id": "ae448902.c57738",
+        "type": "exec",
+        "z": "9f2a30a3.2090a8",
+        "command": "python3 /home/pi/Desktop/read_advertisements.py",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 560,
+        "y": 120,
+        "wires": [
+            [
+                "8db55a67.f28dc8"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8db55a67.f28dc8",
+        "type": "json",
+        "z": "9f2a30a3.2090a8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "21fee80a.cc2fa8"
+            ]
+        ]
+    },
+    {
+        "id": "21fee80a.cc2fa8",
+        "type": "function",
+        "z": "9f2a30a3.2090a8",
+        "name": "Room",
+        "func": "//node.warn(\"msg =\" + msg.payload);\nvar result = msg.payload.values.filter(item => item.mac_address ==='a4:c1:38:e2:85:47');\nif (result.length < 1)\nreturn [[],[],[]]\nvar msg1 = {topic:\"temperature\", payload:result[0].temperature};\nvar msg2 = {topic:\"humidity\", payload:result[0].humidity};\nvar msg3 = {topic:\"battery\", payload:result[0].battery};\nvar msg4 = {topic:\"battery_percent\", payload:result[0].battery_percent};\n//node.warn(\"msg1 =\" + msg1);\nreturn [msg1,msg2,msg3,msg4];",
+        "outputs": 4,
+        "noerr": 0,
+        "x": 550,
+        "y": 320,
+        "wires": [
+            [
+                "c3eae453.2926e"
+            ],
+            [
+                "964f1b00.ce0f1"
+            ],
+            [
+                "e11abb34.665cb8"
+            ],
+            [
+                "79090201.c5f334"
+            ]
+        ]
+    },
+    {
+        "id": "c3eae453.2926e",
+        "type": "ui_gauge",
+        "z": "9f2a30a3.2090a8",
+        "name": "",
+        "group": "",
+        "order": 1,
+        "width": 10,
+        "height": 8,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "15",
+        "max": "30",
+        "colors": [
+            "#0080ff",
+            "#008000",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 810,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "964f1b00.ce0f1",
+        "type": "ui_gauge",
+        "z": "9f2a30a3.2090a8",
+        "name": "",
+        "group": "",
+        "order": 5,
+        "width": 10,
+        "height": 9,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "50",
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 800,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e11abb34.665cb8",
+        "type": "ui_gauge",
+        "z": "9f2a30a3.2090a8",
+        "name": "",
+        "group": "",
+        "order": 9,
+        "width": 10,
+        "height": 9,
+        "gtype": "gage",
+        "title": "Battery",
+        "label": "mV",
+        "format": "{{value}}",
+        "min": "1900",
+        "max": "3600",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#008000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 800,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "79090201.c5f334",
+        "type": "ui_gauge",
+        "z": "9f2a30a3.2090a8",
+        "name": "",
+        "group": "",
+        "order": 9,
+        "width": 10,
+        "height": 9,
+        "gtype": "gage",
+        "title": "Battery %",
+        "label": "mV",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#e6e600",
+            "#008000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 800,
+        "y": 580,
+        "wires": []
+    }
+]

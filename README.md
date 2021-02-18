@@ -62,4 +62,7 @@ Charged 1.5F to 3.6V and let the thermometer run with 24MHz/48MHz. Advertising i
 
 ## OTA and Custom Setup
 Flash the file "ATC_Thermometer20_mod.bin" with:
-[TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html) - OTA and customize, auto-download files new firmware
+[TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html)
+
+## Node-RED 
+read advertisements with Node-RED. [Node-RED](https://github.com/MartMet/ATC_MiThermometer/blob/master/node-RED/nodered.md)
