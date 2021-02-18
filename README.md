@@ -15,10 +15,18 @@ This fork aims to provide a hardware & software modification to run the Xiaomi T
 * Germanium Diode (should be prefered over Silicon Diode due to less voltage drop)
 * Solar Panel BR-243318C (small version) or BP-376634C (big version) http://solarbotics.net/library/datasheets/sunceram.pdf
 
+## Whats the runtime with the super capacitor?
+over 48 hours:
+<img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/supercap_runtime.jpg" alt="supercap_runtime" width="500"/>
+Voltage drop over time:
+Charged 1.5F to 3.6V and let the thermometer run with 48MHz. Advertising interval 10s, measurement is done via plotting internal ADC values.
+
+If the capacity is assumed as labeled and the self-discharge is left aside, the power consumption is on average of  [40.58µW](https://www.wolframalpha.com/input/?i=0.5*1.5F*%28%283.6V%29%5E2-%281.9V%29%5E2%29%2F48h%3DUnitSimplify%5Bx%5D&assumption=%22UnitClash%22+-%3E+%7B%22F%22%2C+%7B%22Farads%22%7D%7D&assumption=%7B%22C%22%2C+%22V%22%7D+-%3E+%7B%22Unit%22%7D&assumption=%22UnitClash%22+-%3E+%7B%22h%22%2C+%7B%22Hours%22%7D%7D)
+
 
 ## Hardware Modifications
 * very less modifications needed
-* no voltage regulator needed
+* no voltage regulator needed (there is already a DC-DC converter integrated, TLSR8251 is rated from 1.8V-3.6V)
 * the supercapacitor fits in without soldering at all. (So the Thermometer can be still powered from a CR2032 cell)
 
 
@@ -63,6 +71,7 @@ Charged 1.5F to 3.6V and let the thermometer run with 24MHz/48MHz. Advertising i
 ## OTA and Custom Setup
 Flash the file "ATC_Thermometer20_mod.bin" with:
 [TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html) - OTA and customize, auto-download files new firmware
+
 
 ## Node-RED 
 read advertisements with Node-RED. [Node-RED](https://github.com/MartMet/ATC_MiThermometer/blob/master/node-RED/nodered.md)
