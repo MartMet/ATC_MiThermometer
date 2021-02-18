@@ -17,7 +17,9 @@ This fork aims to provide a hardware & software modification to run the Xiaomi T
 
 ## Whats the runtime with the super capacitor?
 over 48 hours:
+
 <img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/supercap_runtime.jpg" alt="supercap_runtime" width="500"/>
+
 Voltage drop over time:
 Charged 1.5F to 3.6V and let the thermometer run with 48MHz. Advertising interval 10s, measurement is done via plotting internal ADC values.
 
