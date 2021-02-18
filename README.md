@@ -53,7 +53,7 @@ Only minor modifications are done:
 	* the bigger solar panel has 8 cells (5.3V) but cant power the MCU in active mode in bright sunlight, so the voltage will drop
 	* be sure not to update the device in bright sunlight
 	* simple HW overvoltage protection means like Z-Diodes or LEDs wont work as they draw several µA even in working voltage range
-* changed battery level indicator 0-100% from 1.9V-3.6V
+* changed battery level indicator via LUT to take the non-linearity of the supercapacitor into account
 * the MCU clock is changed from 24MHz to 48MHz to achieve more current consumption in the power waste loop (interestingly the higher MCU clock also reduced overall power consumption)
 
 <img src="https://github.com/MartMet/ATC_MiThermometer/blob/master/images/voltage_comparsion.jpg" alt="voltage_comparsion" width="500"/>
