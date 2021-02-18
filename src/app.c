@@ -247,25 +247,23 @@ void user_init_normal(void) {//this will get executed one time after power up
 		cpu_sleep_wakeup(DEEPSLEEP_MODE, PM_WAKEUP_TIMER,
 				clock_time() + 120 * CLOCK_16M_SYS_TIMER_CLK_1S); // go deep-sleep 2 minutes
 	}
-	if (measured_data.battery_mv > 3600) {
-		while (measured_data.battery_mv > 3600)
-		{
-			measured_data.battery_mv = get_battery_mv();
-			battery_level = get_battery_level(measured_data.battery_mv);
-			show_temp_symbol(0);
-			show_big_number((measured_data.battery_mv-3600) * 10);
-			show_small_number(100, 1);
-			show_battery_symbol(1);
-			update_lcd();
+	while (measured_data.battery_mv > 3600)
+	{
+		measured_data.battery_mv = get_battery_mv();
+		battery_level = get_battery_level(measured_data.battery_mv);
+		show_temp_symbol(0);
+		show_big_number((measured_data.battery_mv-3600) * 10);
+		show_small_number(100, 1);
+		show_battery_symbol(1);
+		update_lcd();
 #if DEVICE_TYPE == DEVICE_MHO_C401
-			while(task_lcd()) pm_wait_ms(10);
+		while(task_lcd()) pm_wait_ms(10);
 #endif
-			//100 ms of wasted power
-			unsigned long t = clock_time();
-			volatile unsigned long temp = 1;
-			while(!clock_time_exceed(t, 100000)){
-				temp *= t; 
-			}
+		//100 ms of wasted power
+		unsigned long t = clock_time();
+		volatile unsigned long temp = 1;
+		while(!clock_time_exceed(t, 100000)){
+			temp *= t; 
 		}
 	}
 	read_sensor_low_power();

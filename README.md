@@ -6,7 +6,7 @@ Initial forked from https://github.com/pvvx/ATC_MiThermometer (v2.0)
 (Thanks and Credits to @atc1441 and @Victor pvvx for this awesome project)
 
 ## Why this fork?
-This fork aims to provide a hardware & software modification to run the ATC-MiThermometer with a supercapacitor and mini solarpanel. So no CR2032 batteries needed anymore.
+This fork aims to provide a hardware & software modification to run the Xiaomi Thermometer LYWSD03MMC with a supercapacitor and mini solarpanel. So no CR2032 batteries needed anymore.
 
 ![preview](/images/preview.jpg)
 
@@ -62,7 +62,7 @@ Charged 1.5F to 3.6V and let the thermometer run with 24MHz/48MHz. Advertising i
 
 ## OTA and Custom Setup
 Flash the file "ATC_Thermometer20_mod.bin" with:
-[TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html)
+[TelinkMiFlasher.html](https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html) - OTA and customize, auto-download files new firmware
 
 ## Node-RED 
 read advertisements with Node-RED. [Node-RED](https://github.com/MartMet/ATC_MiThermometer/blob/master/node-RED/nodered.md)
