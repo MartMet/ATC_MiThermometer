@@ -14,7 +14,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "5",
+        "repeat": "20",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,

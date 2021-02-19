@@ -6,7 +6,8 @@ import subprocess
 
 
 def execute_ble_scan():
-    temp = subprocess.Popen(["sudo", "blescan"], stdout=subprocess.PIPE)
+    temp = subprocess.Popen(["sudo", "blescan", "-t" ,"15"], stdout=subprocess.PIPE)
+    temp.wait()
     return temp.communicate()[0].decode('utf-8')
 
 
