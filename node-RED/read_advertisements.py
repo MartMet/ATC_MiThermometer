@@ -35,7 +35,7 @@ def convert_to_json(list_of_advertisments):
         # humidity in 0.01%
         humidity = float(struct.unpack('<H', hex_data[10:12])[0]) * 0.01
         # temperature in  0.01C
-        temperature = float(struct.unpack('<H', hex_data[8:10])[0]) * 0.01
+        temperature = float(struct.unpack('<h', hex_data[8:10])[0]) * 0.01
         # convert mac address
         mac_address = ':'.join((list(reversed(textwrap.wrap(list_element[4:16], 2)))))
 
